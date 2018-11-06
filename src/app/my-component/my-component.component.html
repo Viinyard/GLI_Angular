@@ -1,0 +1,29 @@
+<input [(ngModel)]="idPokemon" type="number" id="idPokemon" name="idPokemon" placeholder="identifiant" step="1" />
+<input type="text" name="id" value="{{idPokemon}}" readonly>
+
+<input [(ngModel)]="filter">
+
+<select [(ngModel)]="idPokemon">
+  <option *ngFor="let pokemon of listPokemon" value="{{pokemon.idPokemon}}">{{pokemon.name}}</option>
+</select>
+
+<button (click)="go()">Go !</button> 
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>type</th>
+    <th>description</th>
+    <th>zone</th>
+    <th>ethymologie</th>
+  </tr>
+  <tr *ngFor="let pokemon of listPokemon | filterPokemonPipe:'name':filter">
+    <td>{{pokemon.idPokemon}}</td>
+    <td>{{pokemon.name}}</td>
+    <td>{{pokemon.type}}</td>
+    <td>{{pokemon.description}}</td>
+    <td>{{pokemon.zone}}</td>
+    <td>{{pokemon.ethymologie}}</td>
+  </tr>
+<table>

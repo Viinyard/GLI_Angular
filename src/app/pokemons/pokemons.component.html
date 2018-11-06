@@ -1,0 +1,51 @@
+
+<app-pokemon-search></app-pokemon-search>
+
+<input [(ngModel)]="searchString">
+<select [(ngModel)]="filter">
+  <option value="id">id</option>
+  <option value="name">name</option>
+  <option value="type">type</option>
+  <option value="description">description</option>
+  <option value="zone">zone</option>
+  <option value="ethymologie">ethymologie</option>
+</select>
+
+<div>
+  <label>Pokemon name:
+    <input #pokemonName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(pokemonName.value); pokemonName.value=''">
+    add
+  </button>
+</div>
+
+<select [(ngModel)]="selectedPokemon">
+  <option *ngFor="let pokemon of pokemons" [ngValue]="pokemon">{{pokemon.id}} - {{pokemon.name}}</option>
+</select>
+<table>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>type</th>
+    <th>description</th>
+    <th>zone</th>
+    <th>ethymologie</th>
+    <th>delete</th>
+  </tr>
+  <tr *ngFor="let pokemon of pokemons | filterPokemonPipe:filter:searchString" (click)="onSelect(pokemon)" [class.selected]="pokemon === selectedPokemon">
+    <td>
+      <a routerLink="/detail/{{pokemon.id}}">
+        {{pokemon.id}}
+      </a>
+    </td>
+    <td>{{pokemon.name}}</td>
+    <td>{{pokemon.type}}</td>
+    <td>{{pokemon.description}}</td>
+    <td>{{pokemon.zone}}</td>
+    <td>{{pokemon.ethymologie}}</td>
+    <td><button class="delete" title="delete pokemon"
+      (click)="delete(pokemon)">x</button></td>
+  </tr>
+</table>
